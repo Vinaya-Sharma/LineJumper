@@ -26,6 +26,7 @@ struct SearchBar: View {
              RoundedRectangle(cornerRadius: 10)
                 .stroke(Color("secondaryBlue").opacity(0.05), lineWidth: 1)
          )
+        .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
         .background(Color("secondaryBlue").opacity(0.01))
     }
 }

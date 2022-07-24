@@ -11,34 +11,19 @@ struct Homepage: View {
     @State var findStore: String = ""
 
     var body: some View {
-        VStack{
-            
-            Header
-            
-            ChooseStoreType()
-                .padding(.vertical)
-            
-            //pick a store heading
+
+        ScrollView(){
             VStack{
-                VStack{
-                    HStack{
-                        Text("Pick a store")
-                            .font(.title2).bold()
-                        
-                    Spacer()
-                        
-                        Text("View All")
-                            .font(.caption)
-                            .foregroundColor(.orange)
-                            .underline()
-                        
-                    }.padding()
-                }
-            
                 
+                Header
+                
+                ChooseStoreType()
+                    .padding()
+                
+                StoresView
+                
+                Spacer()
             }
-            
-            Spacer()
         }
     }
 }
@@ -64,10 +49,71 @@ extension Homepage{
                          RoundedRectangle(cornerRadius: 10)
                             .stroke(Color("secondaryBlue").opacity(0.05), lineWidth: 1)
                      )
+                    .shadow(color: .gray.opacity(0.2), radius: 3, x: -2, y: 2)
             
                 Spacer()
             }
-        }.padding(.top, 40)
+        }.padding(.top, 10)
+    }
+    
+    var StoresView: some View{
+        VStack{
+            //pick a store heading
+            VStack(alignment:.leading){
+                VStack{
+                    HStack{
+                        Text("Pick a store")
+                            .font(.title2).bold()
+                        
+                    Spacer()
+                        
+                        Text("View All")
+                            .font(.caption)
+                            .foregroundColor(.orange)
+                            .underline()
+                        
+                    }.padding()
+                }
+            
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                            ForEach(0 ..< 5, id: \.self){
+                                _ in
+                                StoreBubble()
+                            }
+
+                    }
+                }
+            }
+            
+            //pick a store heading
+            VStack(alignment:.leading){
+                VStack{
+                    HStack{
+                        Text("Popular Stores")
+                            .font(.title2).bold()
+                        
+                    Spacer()
+                        
+                        Text("View All")
+                            .font(.caption)
+                            .foregroundColor(.orange)
+                            .underline()
+                        
+                    }.padding()
+                }
+            
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                            ForEach(0 ..< 5, id: \.self){
+                                _ in
+                                StoreBubble()
+                            }
+
+                    }
+                }.statusBar(hidden: true)
+            }
+        }
     }
     
 }

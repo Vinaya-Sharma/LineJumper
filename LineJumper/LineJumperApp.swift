@@ -11,7 +11,7 @@ import SwiftUI
 struct LineJumperApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+                MainTabsView()
         }
     }
 }
