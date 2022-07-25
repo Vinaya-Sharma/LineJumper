@@ -20,7 +20,6 @@ struct MainTabsView: View {
     
     var body: some View {
         VStack {
-            Header()
             TabView(selection: $selectedIndex) {
                 VStack{
                     Homepage()

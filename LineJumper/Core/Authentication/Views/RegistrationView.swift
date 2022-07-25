@@ -9,13 +9,15 @@ import SwiftUI
 
 struct RegistrationView: View {
     
+    @State private var owner = false
     @State private var email = ""
     @State private var fullName = ""
-    @State private var username = ""
+    @State private var phoneNumber = ""
     @State private var password = ""
     @State private var isCustomer: Bool = true
+    @State private var isOwner: Bool = false
     @Environment(\.presentationMode) var presentationMode
-   // @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack(){
@@ -54,15 +56,30 @@ struct RegistrationView: View {
                         
             VStack(spacing: 20){
                 CustomInputField(image: "envelope", placeholder: "Email", text: $email)
-                CustomInputField(image: "person", placeholder: "Username", text: $username)
+                CustomInputField(image: "phone", placeholder: "Phone Number", text: $phoneNumber)
                 CustomInputField(image: "person", placeholder: "Full Name", text: $fullName)
                 CustomInputField(image: "key", placeholder: "Password", isSecure:true ,text: $password)
+                
+                if !isCustomer{
+                    Toggle(isOn: $owner){
+                       Text("Are you an owner starting a business with LineJumper?")
+                    }.onTapGesture {
+                        isOwner.toggle()
+                    }
+                }
             
             }.padding(.horizontal, 32)
             
             VStack{
                 Button{
-                   // viewModel.signup(withEmail: email, password: password, fullName: fullName, userName: username)
+                    if isCustomer{
+                        viewModel.signup(withEmail: email, password: password, fullName: fullName, phoneNumber: phoneNumber, isCustomer: "true", isOwner: "false")
+                    } else if isOwner{
+                        viewModel.signup(withEmail: email, password: password, fullName: fullName, phoneNumber: phoneNumber, isCustomer: "false", isOwner: "true")
+                    } else {
+                        viewModel.signup(withEmail: email, password: password, fullName: fullName, phoneNumber: phoneNumber, isCustomer: "false", isOwner: "false")
+                    }
+       
                 }label: {
                     Text("Sign Up")
                         .frame(width: 340, height: 50)

@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct Header: View {
+    
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
         HStack{
             Button {
-                print("open sidebar")
+                viewModel.signOut()
             } label: {
-                Image(systemName: "line.3.horizontal")
+                Image(systemName: "arrow.left")
                     .padding(12)
                     .background(.white)
                     .foregroundColor(.black)
@@ -31,6 +34,8 @@ struct Header: View {
                 print("clicking on img")
             } label: {
                 Image("profilePic")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 40, height: 40)
                     .clipShape(RoundedRectangle(cornerRadius:20))
                     .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)

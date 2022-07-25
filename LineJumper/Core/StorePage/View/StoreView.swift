@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StoreView: View {
-    @State private var showPopup: Bool = true
+    @State private var showPopup: Bool = false
     @State private var selectedPopup: Int = 1
     @State private var name: String = ""
     @State private var phoneNumber: String = ""
