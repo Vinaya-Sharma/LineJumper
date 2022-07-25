@@ -21,6 +21,7 @@ struct StoreBubble: View {
                 
                 Text("Ninas Parlor")
                     .font(.subheadline).bold()
+                    .foregroundColor(.black)
                 
                 HStack{
                     Text("salon")

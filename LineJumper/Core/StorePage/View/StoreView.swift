@@ -8,21 +8,85 @@
 import SwiftUI
 
 struct StoreView: View {
+    @State private var showPopup: Bool = true
+    @State private var selectedPopup: Int = 1
+    @State private var name: String = ""
+    @State private var phoneNumber: String = ""
+    
     var body: some View {
-        ScrollView{
-            VStack(alignment:.leading){
-                
-                // top image
-                TopImg()
         
-                StoreContent()
-                
-                Buttons()
-                
-                Spacer()
-            }
+        ZStack{
+            ScrollView{
+                VStack(alignment:.leading){
+                    // top image
+                    TopImg()
+            
+                    StoreContent()
+                    
+                    Buttons
+                    
+                    Spacer()
+                }.padding(.vertical, 40)
 
-        }
+            }.navigationBarTitle("You can't see me 👀")
+            .navigationBarHidden(true)
+            
+            if showPopup{
+                          ZStack{
+                              Color(.black)
+                                  .opacity(0.2)
+                          }.onTapGesture {
+                              withAnimation(.easeInOut)
+                              {
+                                  showPopup = false
+                              }
+                          }.ignoresSafeArea()
+                      }
+            
+            if showPopup{
+                VStack{
+                    Text("Your Information")
+                        .font(.title).bold()
+                        .foregroundColor(Color("primary"))
+                    
+                    CustomInputField(image: "envelope", placeholder: "Name", text: $name)
+                    
+                    CustomInputField(image: "envelope", placeholder: "Phone number", text: $phoneNumber)
+                        .padding(.vertical, 8)
+                    
+                    HStack{
+                        Text("Estimated Wait time")
+                            .font(.subheadline)
+                        
+                        Spacer()
+                        Text("15 mins").font(.subheadline).bold()
+                    }.padding(.top)
+                    
+                    Divider()
+                    
+                    if(selectedPopup == 1){
+                        Button{
+                            print("stand the user in line")
+                        } label: {
+                            Text("Stand in line")
+                        }
+                    } else {
+                        Button{
+                            print("now in phone call line")
+                        } label: {
+                            Text("Book a call")
+                        }
+                    }
+                    
+                }   .padding()
+                    .background(.white)
+                    .cornerRadius(25)
+                    .padding(.horizontal)
+
+            }
+            
+        }.ignoresSafeArea()
+        
     }
 }
 
@@ -46,6 +110,8 @@ struct ServiceBubble: View {
 }
 
 struct TopImg: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         ZStack(alignment: .top){
             Image("salon_4")
@@ -59,6 +125,9 @@ struct TopImg: View {
                     .background(.white)
                     .cornerRadius(10)
                     .shadow(color: .gray, radius: 2, x: -2, y: 2)
+                    .onTapGesture {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 
                 Spacer()
                 
@@ -135,11 +204,14 @@ struct StoreContent: View {
     }
 }
 
-struct Buttons: View {
-    var body: some View {
+extension StoreView{
+    var Buttons: some View {
         HStack(spacing:4){
             Button {
-                print("baby your now standing in line..but we love you")
+                selectedPopup = 1
+                showPopup.toggle()
+             
+                
             } label: {
                 HStack{
                     Image(systemName: "person.3.sequence.fill")
@@ -157,7 +229,8 @@ struct Buttons: View {
             }
             
             Button {
-                print("baby your now standing in line..but we love you")
+                selectedPopup = 2
+                showPopup.toggle()
             } label: {
                 HStack{
                     Image(systemName: "phone.fill")
@@ -177,4 +250,5 @@ struct Buttons: View {
             
         }.padding(.horizontal)
     }
+    
 }

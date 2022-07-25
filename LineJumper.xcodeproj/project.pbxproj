@@ -11,10 +11,16 @@
 		8F293C88288DC8EA0099CEB2 /* Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F293C87288DC8EA0099CEB2 /* Lines.swift */; };
 		8F293C8A288DC8F20099CEB2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F293C89288DC8F20099CEB2 /* Profile.swift */; };
 		8F293C8C288DCA480099CEB2 /* MainTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F293C8B288DCA480099CEB2 /* MainTabsView.swift */; };
+		8F43C729288F0367009376AB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43C728288F0367009376AB /* LoginView.swift */; };
+		8F43C72B288F03A4009376AB /* AuthHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43C72A288F03A4009376AB /* AuthHeader.swift */; };
+		8F43C72D288F03E9009376AB /* RoundedShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43C72C288F03E9009376AB /* RoundedShape.swift */; };
+		8F43C72F288F0438009376AB /* CustomInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43C72E288F0438009376AB /* CustomInputField.swift */; };
 		8F702E77288DAD7200117F4F /* StoreBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F702E76288DAD7200117F4F /* StoreBubble.swift */; };
+		8F79FCCC288EE6690097FDCE /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F79FCCB288EE6690097FDCE /* Header.swift */; };
 		8F7BEEB6288DE42E004F05EA /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7BEEB5288DE42E004F05EA /* StoreView.swift */; };
 		8F811A3A288D9DFF0054410A /* ChooseStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F811A39288D9DFF0054410A /* ChooseStoreType.swift */; };
 		8F8717E5288CE0150094213C /* StoreTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8717E4288CE0150094213C /* StoreTypes.swift */; };
+		8FD35DBF288EC79700A7DBFE /* SwiftEntryKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8FD35DBE288EC79700A7DBFE /* SwiftEntryKit */; };
 		8FFE0214288C64AA007C4427 /* LineJumperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE0213288C64AA007C4427 /* LineJumperApp.swift */; };
 		8FFE0216288C64AA007C4427 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE0215288C64AA007C4427 /* ContentView.swift */; };
 		8FFE0218288C64AB007C4427 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FFE0217288C64AB007C4427 /* Assets.xcassets */; };
@@ -28,7 +34,12 @@
 		8F293C87288DC8EA0099CEB2 /* Lines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lines.swift; sourceTree = "<group>"; };
 		8F293C89288DC8F20099CEB2 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		8F293C8B288DCA480099CEB2 /* MainTabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabsView.swift; sourceTree = "<group>"; };
+		8F43C728288F0367009376AB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		8F43C72A288F03A4009376AB /* AuthHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeader.swift; sourceTree = "<group>"; };
+		8F43C72C288F03E9009376AB /* RoundedShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShape.swift; sourceTree = "<group>"; };
+		8F43C72E288F0438009376AB /* CustomInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputField.swift; sourceTree = "<group>"; };
 		8F702E76288DAD7200117F4F /* StoreBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreBubble.swift; sourceTree = "<group>"; };
+		8F79FCCB288EE6690097FDCE /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		8F7BEEB5288DE42E004F05EA /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		8F811A39288D9DFF0054410A /* ChooseStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStoreType.swift; sourceTree = "<group>"; };
 		8F8717E4288CE0150094213C /* StoreTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTypes.swift; sourceTree = "<group>"; };
@@ -46,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FD35DBF288EC79700A7DBFE /* SwiftEntryKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +104,31 @@
 				8F293C89288DC8F20099CEB2 /* Profile.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		8F43C725288F033E009376AB /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				8F43C727288F035A009376AB /* ViewModels */,
+				8F43C726288F0356009376AB /* Views */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		8F43C726288F0356009376AB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8F43C728288F0367009376AB /* LoginView.swift */,
+				8F43C72A288F03A4009376AB /* AuthHeader.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8F43C727288F035A009376AB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		8F7BEEB2288DE411004F05EA /* StorePage */ = {
@@ -193,6 +230,7 @@
 		8FFE0221288C6567007C4427 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8F43C725288F033E009376AB /* Authentication */,
 				8F7BEEB2288DE411004F05EA /* StorePage */,
 				8F293C7C288DC7C40099CEB2 /* MainTabsView */,
 				8FFE0226288C6601007C4427 /* Homepage */,
@@ -228,6 +266,9 @@
 				8F811A38288D9DDE0054410A /* ChoseStoreType */,
 				8F8717E6288CEAA70094213C /* StoreBubble */,
 				8FFE022D288C6837007C4427 /* SearchBar.swift */,
+				8F79FCCB288EE6690097FDCE /* Header.swift */,
+				8F43C72C288F03E9009376AB /* RoundedShape.swift */,
+				8F43C72E288F0438009376AB /* CustomInputField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -273,6 +314,9 @@
 			dependencies = (
 			);
 			name = LineJumper;
+			packageProductDependencies = (
+				8FD35DBE288EC79700A7DBFE /* SwiftEntryKit */,
+			);
 			productName = LineJumper;
 			productReference = 8FFE0210288C64AA007C4427 /* LineJumper.app */;
 			productType = "com.apple.product-type.application";
@@ -301,6 +345,9 @@
 				Base,
 			);
 			mainGroup = 8FFE0207288C64AA007C4427;
+			packageReferences = (
+				8FD35DBD288EC79700A7DBFE /* XCRemoteSwiftPackageReference "SwiftEntryKit" */,
+			);
 			productRefGroup = 8FFE0211288C64AA007C4427 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -329,16 +376,21 @@
 			files = (
 				8FFE022C288C6635007C4427 /* Homepage.swift in Sources */,
 				8F293C88288DC8EA0099CEB2 /* Lines.swift in Sources */,
+				8F43C72B288F03A4009376AB /* AuthHeader.swift in Sources */,
 				8FFE022E288C6837007C4427 /* SearchBar.swift in Sources */,
 				8F8717E5288CE0150094213C /* StoreTypes.swift in Sources */,
+				8F43C72F288F0438009376AB /* CustomInputField.swift in Sources */,
 				8F293C86288DC8E20099CEB2 /* Saved.swift in Sources */,
 				8FFE0216288C64AA007C4427 /* ContentView.swift in Sources */,
 				8F702E77288DAD7200117F4F /* StoreBubble.swift in Sources */,
 				8F811A3A288D9DFF0054410A /* ChooseStoreType.swift in Sources */,
+				8F43C729288F0367009376AB /* LoginView.swift in Sources */,
 				8F293C8C288DCA480099CEB2 /* MainTabsView.swift in Sources */,
 				8F293C8A288DC8F20099CEB2 /* Profile.swift in Sources */,
+				8F79FCCC288EE6690097FDCE /* Header.swift in Sources */,
 				8F7BEEB6288DE42E004F05EA /* StoreView.swift in Sources */,
 				8FFE0214288C64AA007C4427 /* LineJumperApp.swift in Sources */,
+				8F43C72D288F03E9009376AB /* RoundedShape.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +591,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8FD35DBD288EC79700A7DBFE /* XCRemoteSwiftPackageReference "SwiftEntryKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huri000/SwiftEntryKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8FD35DBE288EC79700A7DBFE /* SwiftEntryKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8FD35DBD288EC79700A7DBFE /* XCRemoteSwiftPackageReference "SwiftEntryKit" */;
+			productName = SwiftEntryKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8FFE0208288C64AA007C4427 /* Project object */;
 }

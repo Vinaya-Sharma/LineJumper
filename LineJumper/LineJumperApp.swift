@@ -11,7 +11,11 @@ import SwiftUI
 struct LineJumperApp: App {
     var body: some Scene {
         WindowGroup {
+            NavigationView {
                 MainTabsView()
+                .navigationBarTitle("You can't see me 👀")
+                .navigationBarHidden(true)
+            }
         }
     }
 }

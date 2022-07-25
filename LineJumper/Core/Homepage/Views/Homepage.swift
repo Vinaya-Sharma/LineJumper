@@ -10,21 +10,21 @@ import SwiftUI
 struct Homepage: View {
     @State var findStore: String = ""
 
-    var body: some View {
 
-        ScrollView(){
-            VStack{
-                
-                Header
-                
-                ChooseStoreType()
-                    .padding()
-                
-                StoresView
-                
-                Spacer()
+    var body: some View {
+            ScrollView(){
+                VStack{
+                    
+                    Header
+                    
+                    ChooseStoreType()
+                        .padding()
+                    
+                    StoresView
+                    
+                    Spacer()
+                }
             }
-        }
     }
 }
 
@@ -72,14 +72,20 @@ extension Homepage{
                             .foregroundColor(.orange)
                             .underline()
                         
-                    }.padding()
+                    }.padding(.horizontal)
+                        .padding(.bottom)
                 }
             
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack{
                             ForEach(0 ..< 5, id: \.self){
                                 _ in
-                                StoreBubble()
+                                
+                                NavigationLink {
+                                    StoreView()
+                                } label: {
+                                    StoreBubble()
+                                }
                             }
 
                     }
@@ -107,7 +113,14 @@ extension Homepage{
                     HStack{
                             ForEach(0 ..< 5, id: \.self){
                                 _ in
-                                StoreBubble()
+                                
+                                NavigationLink {
+                                    StoreView()
+                                } label: {
+                                    StoreBubble()
+                                }
+
+                                
                             }
 
                     }

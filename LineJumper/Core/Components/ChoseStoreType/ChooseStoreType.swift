@@ -34,7 +34,6 @@ struct ChooseStoreType: View {
                         .frame(width: 120, height:100)
                         .background(item==isSelected ? Color("primary"): .white)
                         .cornerRadius(100)
-                        .padding(.vertical)
                             .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
                             .onTapGesture {
                                 isSelected = item
