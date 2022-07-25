@@ -12,7 +12,7 @@ struct LineJumperApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                MainTabsView()
+                LoginView()
                 .navigationBarTitle("You can't see me 👀")
                 .navigationBarHidden(true)
             }

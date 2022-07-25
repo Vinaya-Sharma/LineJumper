@@ -10,35 +10,25 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var isCustomer: Bool = true
     //@EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         // parent stack
         VStack{
+            
+            ZStack{
+                AuthHeader(title: "Hey There.", description: "Welcome Back!")
                 
-            AuthHeader(title: "Hey There.", description: "Welcome Back!")
-  
-            VStack(alignment:.leading, spacing: 20){
-                
-                HStack{
-                    Button{
-                        isCustomer = true
-                    }label: {
-                        Text("Customer ")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor( isCustomer ? Color("primary") : .black )
+                Image("bunny_2")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .clipShape(Capsule())
+                    .frame(width: 140)
+                    .offset(x: 120, y: -30)
+        
+            }
            
-                    }
-                    
-                    Button{
-                        isCustomer = false
-                    } label: {
-                        Text("|  Employee").font(.title2).bold()
-                            .foregroundColor( !isCustomer ? Color("primary") : .black )
-                    }
-                }
+            VStack(spacing: 20){
                 
                 CustomInputField(image: "envelope", placeholder: "Email", text: $email)
                 CustomInputField(image: "key", placeholder: "Password", isSecure:true ,text: $password)
@@ -59,7 +49,7 @@ struct LoginView: View {
                 
             }.padding(.trailing, 24)
                 .padding(.top)
-            
+
             VStack{
                 Button{
                     //viewModel.login(withEmail: email, password: password)
@@ -73,11 +63,12 @@ struct LoginView: View {
                 }.shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 0)
             }
             
+            
             Spacer()
             
             NavigationLink{
-                //RegistrationView()
-                 //   .navigationBarHidden(true)
+                RegistrationView()
+                    .navigationBarHidden(true)
             }label: {
                 HStack{
                     Text("Don't have an account")
