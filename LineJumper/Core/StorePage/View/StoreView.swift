@@ -110,7 +110,6 @@ struct ServiceBubble: View {
 }
 
 struct TopImg: View {
-    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack(alignment: .top){
@@ -120,15 +119,8 @@ struct TopImg: View {
                 .cornerRadius(25)
             
             HStack(alignment: .top){
-                Image(systemName: "arrow.left")
-                    .padding()
-                    .background(.white)
-                    .cornerRadius(10)
-                    .shadow(color: .gray, radius: 2, x: -2, y: 2)
-                    .onTapGesture {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                
+                DissmissArrow()
+            
                 Spacer()
                 
                 Image(systemName: "heart.fill")

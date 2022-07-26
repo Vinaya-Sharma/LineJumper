@@ -8,16 +8,23 @@
 import SwiftUI
 
 struct SideMenuView: View {
+    
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
 
         VStack(alignment: .leading){
             VStack(alignment:.leading, spacing: 4)
                 {
-                    Circle()
-                        .frame(width: 48, height: 48)
+                    Image("profilePic")
+                        .resizable()
+                        .frame(width: 80, height: 80)
+                        .cornerRadius(100)
+                        .padding(.bottom, 8)
+                    
                     Text("Krish Sharma")
                         .font(.headline)
-                    Text("@KrishSharmaa")
+                    Text("Ninas Parlor")
                         .font(.caption)
                         .foregroundColor(.gray)
                     
@@ -28,15 +35,16 @@ struct SideMenuView: View {
                 item in
                 if item == .profile{
                     NavigationLink{
-                //        ProfileView()
+                        Profile()
                     } label: {
                         SideMenuRowView(item: item).foregroundColor(.black)
                     }
                 } else if item == .logout{
                     Button{
-                            print("Handle logout heree...")
+                        viewModel.signOut()
                     }label: {
                         SideMenuRowView(item: item)
+                            .foregroundColor(.black)
                     }
                 } else {
                     SideMenuRowView(item: item)

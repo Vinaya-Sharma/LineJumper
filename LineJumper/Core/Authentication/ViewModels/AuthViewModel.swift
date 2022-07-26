@@ -11,12 +11,13 @@ class AuthViewModel: ObservableObject{
     
     @Published var userSession: FirebaseAuth.User?
     @Published var didRegUser: Bool = false
-    @Published var currentUser: User?
+    @Published var currentUser: UserModel?
     var tempUserSession: FirebaseAuth.User?
+    private let service = UserService()
     
     init (){
         self.userSession = Auth.auth().currentUser
-        signOut()
+        self.fetchUser()
     }
     
     func login (withEmail email: String, password:String){
@@ -29,6 +30,7 @@ class AuthViewModel: ObservableObject{
             
             guard let user = result?.user else {return}
             self.userSession = user
+            self.fetchUser()
         }
     }
     
@@ -41,10 +43,6 @@ class AuthViewModel: ObservableObject{
                 return
             }
             
-            guard let user =  result?.user else {return}
-//            self.tempUserSession = user
-            self.userSession = user
-            
             let data = [
                 "email": email,
                 "phoneNumber": phoneNumber,
@@ -54,20 +52,33 @@ class AuthViewModel: ObservableObject{
                 "isOwner": isOwner
             ]
             
+            guard let user =  result?.user else {return}
             Firestore.firestore().collection("customers")
                 .document(user.uid)
                 .setData(data){
                     _ in
                     self.didRegUser = true
                 }
+
+            // self.tempUserSession = user
+            self.userSession = user
+            self.fetchUser()
+
+            
         }
     }
     
-     
     func signOut(){
         userSession = nil
         try? Auth.auth().signOut()
         
+    }
+    
+    func fetchUser(){
+          guard let userid = self.userSession?.uid else {return}
+          service.fetchUser(withUid: userid) { user in
+              self.currentUser = user
+          }
     }
 
 }

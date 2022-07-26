@@ -11,6 +11,9 @@
 		8F293C88288DC8EA0099CEB2 /* Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F293C87288DC8EA0099CEB2 /* Lines.swift */; };
 		8F293C8A288DC8F20099CEB2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F293C89288DC8F20099CEB2 /* Profile.swift */; };
 		8F293C8C288DCA480099CEB2 /* MainTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F293C8B288DCA480099CEB2 /* MainTabsView.swift */; };
+		8F2A19FA288F5FBC00F45F0F /* DissmissArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2A19F9288F5FBC00F45F0F /* DissmissArrow.swift */; };
+		8F387DFB2890281000302C8E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F387DFA2890281000302C8E /* UserModel.swift */; };
+		8F387DFD2890295E00302C8E /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F387DFC2890295E00302C8E /* UserService.swift */; };
 		8F3B60D5288F2ED700DCAFA3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F3B60D4288F2ED700DCAFA3 /* GoogleService-Info.plist */; };
 		8F3B60D8288F2F7600DCAFA3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8F3B60D7288F2F7600DCAFA3 /* FirebaseAuth */; };
 		8F3B60DA288F2F7600DCAFA3 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8F3B60D9288F2F7600DCAFA3 /* FirebaseDatabase */; };
@@ -46,6 +49,9 @@
 		8F293C87288DC8EA0099CEB2 /* Lines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lines.swift; sourceTree = "<group>"; };
 		8F293C89288DC8F20099CEB2 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		8F293C8B288DCA480099CEB2 /* MainTabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabsView.swift; sourceTree = "<group>"; };
+		8F2A19F9288F5FBC00F45F0F /* DissmissArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DissmissArrow.swift; sourceTree = "<group>"; };
+		8F387DFA2890281000302C8E /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		8F387DFC2890295E00302C8E /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		8F3B60D4288F2ED700DCAFA3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8F3B60E3288F30D600DCAFA3 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		8F3B60E5288F38A300DCAFA3 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
@@ -287,6 +293,7 @@
 		8FFE0222288C6574007C4427 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8F387DFA2890281000302C8E /* UserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -294,6 +301,7 @@
 		8FFE0223288C657A007C4427 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				8F387DFC2890295E00302C8E /* UserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -315,6 +323,7 @@
 				8F79FCCB288EE6690097FDCE /* Header.swift */,
 				8F43C72C288F03E9009376AB /* RoundedShape.swift */,
 				8F43C72E288F0438009376AB /* CustomInputField.swift */,
+				8F2A19F9288F5FBC00F45F0F /* DissmissArrow.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -429,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FFE022C288C6635007C4427 /* Homepage.swift in Sources */,
+				8F387DFD2890295E00302C8E /* UserService.swift in Sources */,
 				8F293C88288DC8EA0099CEB2 /* Lines.swift in Sources */,
 				8F3B60E6288F38A300DCAFA3 /* SideMenuView.swift in Sources */,
 				8F43C72B288F03A4009376AB /* AuthHeader.swift in Sources */,
@@ -438,8 +448,10 @@
 				8F3B60E4288F30D600DCAFA3 /* AuthViewModel.swift in Sources */,
 				8F43C72F288F0438009376AB /* CustomInputField.swift in Sources */,
 				8F293C86288DC8E20099CEB2 /* Saved.swift in Sources */,
+				8F387DFB2890281000302C8E /* UserModel.swift in Sources */,
 				8FFE0216288C64AA007C4427 /* ContentView.swift in Sources */,
 				8F702E77288DAD7200117F4F /* StoreBubble.swift in Sources */,
+				8F2A19FA288F5FBC00F45F0F /* DissmissArrow.swift in Sources */,
 				8F811A3A288D9DFF0054410A /* ChooseStoreType.swift in Sources */,
 				8F43C729288F0367009376AB /* LoginView.swift in Sources */,
 				8F3B60EC288F392C00DCAFA3 /* SideMenuViewModel.swift in Sources */,
