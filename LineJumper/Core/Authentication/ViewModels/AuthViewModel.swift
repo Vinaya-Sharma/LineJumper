@@ -21,7 +21,7 @@ class AuthViewModel: ObservableObject{
         self.fetchUser()
         
         if self.currentUser?.isOwner == "true"{
-            fetchCompany()
+            self.fetchCompany()
         }
     }
     
@@ -129,18 +129,30 @@ class AuthViewModel: ObservableObject{
     }
     
     //this is where error might be happening
-    func uploadProfilePic(_ image: UIImage){
+    func uploadPhoto(_ image: UIImage, logo: UIImage, Data: [AnyHashable : Any]){
         print("running upload to firebase firestore")
-        guard let userId = tempUserSession?.uid else {return}
+        guard let userId = self.currentUser?.id else {return}
         
-        ImageUploader.uploadImg(image: image){
+        ImageUploader.uploadImg(image: image ){
             profilePicUrl in
             
             Firestore.firestore().collection("companies")
                 .document(userId)
-                .updateData(["photo": profilePicUrl])
+                .updateData(["picture": profilePicUrl])
         }
         
+        ImageUploader.uploadImg(image: logo){
+            profilePicUrl in
+            
+            Firestore.firestore().collection("companies")
+                .document(userId)
+                .updateData(["logo": profilePicUrl])
+        }
+        
+        Firestore.firestore().collection("companies")
+            .document(userId)
+            .updateData(Data)
+
     }
 
 }

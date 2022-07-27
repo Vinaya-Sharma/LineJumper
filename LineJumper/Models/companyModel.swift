@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+import SwiftUI
 
 struct CompanyModel: Identifiable, Decodable{
     @DocumentID var id: String?
@@ -14,4 +15,9 @@ struct CompanyModel: Identifiable, Decodable{
     let employeeCode: String
     let fullName: String
     let phoneNumber: String
+    var picture: String?
+    var logo: String?
+    var description: String?
+    var address: String?
+    var companyName: String?
 }

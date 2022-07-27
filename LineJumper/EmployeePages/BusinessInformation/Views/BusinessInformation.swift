@@ -8,15 +8,24 @@
 import SwiftUI
 
 struct BusinessInformation: View {
-    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel: AuthViewModel;
     
+
     @State private var companyColor1 =
     Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2);
     @State private var companyColor2 =
     Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2);
     @State private var companyColor3 =
     Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2);
-    @State private var description: String = "type here"
+    @State private var description: String = "type here";
+    @State private var companyName = "";
+    @State private var address = "";
+    @State private var showImagePicker = false
+    @State private var showLogoPicker  = false
+    @State private var selectedImage: UIImage?
+    @State private var selectedLogo: UIImage?
+    @State private var companyImage: Image?
+    @State private var companyLogo: Image?
 
     var body: some View {
         
@@ -25,19 +34,57 @@ struct BusinessInformation: View {
                 if let currentCompany = viewModel.currentCompany {
                 VStack(alignment:.leading){
                     
-                    Text("Business Information for \(currentCompany.email)")
+                    Text("Business Information")
                         .font(.title2)
                         .bold()
                         .foregroundColor(Color("primaryBlue"))
                         .padding(.top)
                     
                     //image uploader
-                    UploaderSquare(width: 300, height: 250, roundness: 20)
-                        .shadow(color: Color("primary"), radius: 2, x: 0, y: 0)
-                        .padding()
+                    Button{
+                        showImagePicker = true
+                    }
+                    label:{
+                        if currentCompany.picture == nil{
+                            
+                            VStack(alignment:.center){
+                                if let companyImage = companyImage {
+                                    companyImage
+                                        .resizable()
+                                        .cornerRadius(20)
+                                        .frame(width: 300, height: 250)
+                          
+                                    }
+                                else {
+                                        UploaderSquare(width: 300, height: 250, roundness: 20)
+                                            .shadow(color: Color("primary"), radius: 2, x: 0, y: 0)
+                                            .padding()
+                                    }
+                            }
+                            
+                        } else {
+                            Image(currentCompany.picture ?? "https://iconape.com/wp-content/png_logo_vector/upload-5.png")
+                                .resizable()
+                                .frame(width: 300, height: 250)
+                                .cornerRadius(20)
+                                .shadow(color: Color("primary"), radius: 2, x: 0, y: 0)
+                                .padding()
+                        }
+                    }
+                    .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
+                                    ImagePicker(selectedImage: $selectedImage)
+                                }
+                    
                     Text("Business Image")
                         .foregroundColor(Color("primaryBlue"))
                         .font(.subheadline).bold()
+                    
+                    VStack(spacing:10){
+                        CustomInputField(image: "person", placeholder: "Company Name", text: $companyName)
+                        CustomInputField(image: "mappin.and.ellipse", placeholder: "Address", text: $address)
+                        
+                    }.padding()
+       
                     
                     //company colors
                     HStack(alignment:.center){
@@ -55,9 +102,43 @@ struct BusinessInformation: View {
                     HStack{
                         //logo uploader
                         VStack{
-                            UploaderSquare(width: 100, height: 100, roundness: 20)
-                                .shadow(color: Color("primary"), radius: 2, x: 0, y: 0)
-                                .padding()
+                            
+                            // image uploader - logo
+                            Button{
+                                showLogoPicker = true
+                            }
+                            label:{
+                                if currentCompany.logo == nil{
+                                    
+                                    VStack(alignment:.center){
+                                        if let companyLogo = companyLogo {
+                                            companyLogo
+                                                .resizable()
+                                                .cornerRadius(20)
+                                                .frame(width: 100, height: 100)
+                                  
+                                            }
+                                        else {
+                                            UploaderSquare(width: 100, height: 100, roundness: 20)
+                                                .shadow(color: Color("primary"), radius: 2, x: 0, y: 0)
+                                                .padding()
+                                            }
+                                    }
+                                    
+                                } else {
+                                    Image(currentCompany.logo ?? "https://iconape.com/wp-content/png_logo_vector/upload-5.png")
+                                        .resizable()
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(20)
+                                        .shadow(color: Color("primary"), radius: 2, x: 0, y: 0)
+                                        .padding()
+                                }
+                            }
+                            .sheet(isPresented: $showLogoPicker, onDismiss: loadLogo) {
+                                            ImagePicker(selectedImage: $selectedLogo)
+                                        }
+                            
+                           
                             Text("Business Image")
                                 .foregroundColor(Color("primaryBlue"))
                                 .font(.subheadline).bold()
@@ -81,6 +162,20 @@ struct BusinessInformation: View {
                         }
                     }
                     
+                    Button{
+                        let data = [
+                            "companyName" : companyName ,
+                            "address" : address,
+                            "description" : description,
+                        ]
+                        
+                        viewModel.uploadPhoto(selectedImage!, logo: selectedLogo!, Data: data)
+                        
+                    }label: {
+                        ManageButton(theText: "Save Changes", theColor: "primary").padding(.vertical)
+                    }
+                    
+                    
                     Text("Your Managers")
                         .font(.title2)
                         .bold()
@@ -102,12 +197,22 @@ struct BusinessInformation: View {
                         }.padding(.horizontal)
                     }.padding(.trailing, 35)
                     
-                    Spacer()
+      
                 }.padding(.horizontal)
                 }}
             }
             
     }
+    
+    func loadImage(){
+          guard let selectedImage = selectedImage else {return}
+        companyImage = Image(uiImage: selectedImage)
+      }
+    
+    func loadLogo(){
+          guard let selectedLogo = selectedLogo else {return}
+        companyLogo = Image(uiImage: selectedLogo)
+      }
 }
 
 struct BusinessInformation_Previews: PreviewProvider {
