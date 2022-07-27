@@ -60,11 +60,20 @@ struct RegistrationView: View {
                 CustomInputField(image: "person", placeholder: "Full Name", text: $fullName)
                 CustomInputField(image: "key", placeholder: "Password", isSecure:true ,text: $password)
                 
+
                 if !isCustomer{
-                    Toggle(isOn: $owner){
-                       Text("Are you an owner starting a business with LineJumper?")
-                    }.onTapGesture {
+                
+                    HStack{
+                        Text("Are you an owner starting a business with LineJumper?")
+                            .frame(width: 220)
+                        
+                        Spacer()
+                        
+                        !isOwner ? Image(systemName: "square") : Image(systemName: "checkmark.square")
+                        
+                    } .onTapGesture {
                         isOwner.toggle()
+                        print("isOwner")
                     }
                 }
             

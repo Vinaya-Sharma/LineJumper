@@ -22,4 +22,16 @@ struct UserService{
             }
     }
     
+    func fetchCompany(withUid uid : String, completion: @escaping(CompanyModel) -> Void) {
+        print("fetching company with uid of \(uid)")
+        Firestore.firestore().collection("companies")
+            .document(uid)
+            .getDocument {snapshot, _ in
+                guard let snapshot = snapshot else {return}
+                guard let user = try? snapshot.data(as: CompanyModel.self) else {return}
+            
+                completion(user)
+            }
+    }
+    
 }

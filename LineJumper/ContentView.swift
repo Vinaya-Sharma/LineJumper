@@ -18,19 +18,19 @@ struct ContentView: View {
                 if viewModel.userSession == nil {
                     LoginView()
                 } else {
-            
+                    if let currentUser = viewModel.currentUser{
                     ZStack(alignment:.topLeading){
                         VStack{
-                            if let isCustomer = viewModel.currentUser?.isCustomer{
+                      
                             HStack{
                                 Button {
-                                    if isCustomer == "true" {
+                                    if currentUser.isCustomer == "true" {
                                         viewModel.signOut()
                                     } else {
                                         SideMenuBar.toggle()
                                     }
                                 } label: {
-                                    Image(systemName: isCustomer == "true" ? "arrow.left" : "line.3.horizontal")
+                                    Image(systemName: currentUser.isCustomer == "true" ? "arrow.left" : "line.3.horizontal")
                                         .padding(12)
                                         .background(.white)
                                         .foregroundColor(.black)
@@ -55,8 +55,13 @@ struct ContentView: View {
                                         .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
                                 }
                             }.padding(.horizontal)
+                            
+                            if (currentUser.isCustomer == "true"){
+                                MainTabsView()
+                            } else {
+                                EmployeeTabsView()
                             }
-                            MainTabsView()
+                            
                         }
                
                         if SideMenuBar{
@@ -80,6 +85,7 @@ struct ContentView: View {
             }
             }
         }
+    }
 }
         
     

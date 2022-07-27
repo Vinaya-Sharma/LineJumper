@@ -12,12 +12,17 @@ class AuthViewModel: ObservableObject{
     @Published var userSession: FirebaseAuth.User?
     @Published var didRegUser: Bool = false
     @Published var currentUser: UserModel?
+    @Published var currentCompany: CompanyModel?
     var tempUserSession: FirebaseAuth.User?
     private let service = UserService()
     
     init (){
         self.userSession = Auth.auth().currentUser
         self.fetchUser()
+        
+        if self.currentUser?.isOwner == "true"{
+            fetchCompany()
+        }
     }
     
     func login (withEmail email: String, password:String){
@@ -31,6 +36,10 @@ class AuthViewModel: ObservableObject{
             guard let user = result?.user else {return}
             self.userSession = user
             self.fetchUser()
+            
+            if self.currentUser?.isOwner == "true"{
+                self.fetchCompany()
+            }
         }
     }
     
@@ -52,18 +61,48 @@ class AuthViewModel: ObservableObject{
                 "isOwner": isOwner
             ]
             
+            let code:String = String(Int.random(in: 10000..<100000))
+            //business type, address, name
+            
             guard let user =  result?.user else {return}
+            
+            if isOwner == "true"
+                {
+                    let bData = [
+                    "email": email,
+                    "phoneNumber": phoneNumber,
+                    "fullName": fullName,
+                    "employeeCode": code
+                ]
+                print("yes you are an owner")
+                    
+                    Firestore.firestore().collection("companies")
+                        .document(user.uid)
+                        .setData(bData){
+                            _ in
+                            self.didRegUser = true
+                        }
+            } else {
+                print("no owner :(")
+            }
+            
+
             Firestore.firestore().collection("customers")
                 .document(user.uid)
                 .setData(data){
                     _ in
                     self.didRegUser = true
                 }
+        
+       
 
             // self.tempUserSession = user
             self.userSession = user
             self.fetchUser()
 
+            if self.currentUser?.isOwner == "true"{
+                self.fetchCompany()
+            }
             
         }
     }
@@ -79,6 +118,29 @@ class AuthViewModel: ObservableObject{
           service.fetchUser(withUid: userid) { user in
               self.currentUser = user
           }
+    }
+    
+    func fetchCompany(){
+        guard let userid = self.userSession?.uid else {return}
+        service.fetchCompany(withUid: userid){
+            user in
+            self.currentCompany = user
+        }
+    }
+    
+    //this is where error might be happening
+    func uploadProfilePic(_ image: UIImage){
+        print("running upload to firebase firestore")
+        guard let userId = tempUserSession?.uid else {return}
+        
+        ImageUploader.uploadImg(image: image){
+            profilePicUrl in
+            
+            Firestore.firestore().collection("companies")
+                .document(userId)
+                .updateData(["photo": profilePicUrl])
+        }
+        
     }
 
 }
