@@ -7,11 +7,12 @@
 
 import SwiftUI
 import FirebaseFirestore
+import Kingfisher
 
 struct Lines: View {
-    @State private var inLine: Bool = false
+    @State private var inLine: Bool = true
     @EnvironmentObject var viewModel: AuthViewModel
-    @State private var myLinesList: [myLines] = []
+    @State var myLinesList: [myLines] = []
     
     var body: some View {
         VStack(alignment:.leading){
@@ -45,11 +46,12 @@ struct Lines: View {
             }.frame(height: 200)
                 .padding(.top, 44)
 
+            if inLine {
             ScrollView(.vertical, showsIndicators: false){
-            ForEach( 0 ..< 5, id:\.self ){
-                _ in
+                ForEach(0 ..< myLinesList.count, id:\.self ) {
+                    lineNumber in
             VStack(alignment:.leading){
-                Image("salon_2")
+                KFImage(URL(string: myLinesList[lineNumber].picture ) )
                     .resizable()
                     .aspectRatio(contentMode: ContentMode.fill)
                     .frame(width: 320, height: 180)
@@ -61,14 +63,14 @@ struct Lines: View {
 
                     HStack{
                         
-                        Text("Company name")
+                        Text( myLinesList[lineNumber].companyName )
                             .bold()
                             .foregroundColor(.black)
                         
                         Spacer()
                         
                         
-                        Text("10 mins remainging")
+                        Text("10 mins remaining")
                             .foregroundColor(Color("primary"))
                     }
                     
@@ -111,6 +113,68 @@ struct Lines: View {
             }
             
             }
+            } else {
+                VStack(alignment:.leading){
+                    Image("salon_2")
+                        .resizable()
+                        .aspectRatio(contentMode: ContentMode.fill)
+                        .frame(width: 320, height: 180)
+                        .cornerRadius(25)
+                        .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
+                    
+                    VStack(alignment:.leading, spacing: 4){
+                        Text("hiii").foregroundColor(.clear);
+
+                        HStack{
+                            
+                            Text("Company Name")
+                                .bold()
+                                .foregroundColor(.black)
+                            
+                            Spacer()
+                            
+                            
+                            Text("10 mins remaining")
+                                .foregroundColor(Color("primary"))
+                        }
+                        
+                        HStack{
+                            HStack{
+                                Image(systemName: "plus.circle")
+                                Text("Request Time")
+                            } .padding(4)
+                                .foregroundColor(.white)
+                                .background(Color("primary"))
+                                .cornerRadius(100)
+                            
+                 
+                            
+                            HStack{
+                                Image(systemName: "x.circle")
+                                Text("Leave Line")
+                            } .padding(4)
+                                .foregroundColor(.white)
+                                .background(Color("primary"))
+                                .cornerRadius(100)
+                        }.font(.footnote).padding(.top, 4)
+                         
+                    }
+                    .padding(10)
+                    .frame(width: 320, height: 50)
+                        .background(.white)
+                        .offset(y:-40)
+                    
+                    
+                }.frame(width: 320)
+                    .overlay(
+                          RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color("secondaryBlue").opacity(0.1), lineWidth: 2)
+                    )
+                    .padding(.horizontal)
+                    .padding(.vertical, 6)
+                
+                Spacer()
+            }
         }.onAppear {
             findMyLines()
         }
@@ -120,7 +184,7 @@ struct Lines: View {
         
         viewModel.fetchUser()
         
-        if viewModel.currentUser?.lines! != nil {
+        if viewModel.currentUser?.lines != nil {
             //this function will run for each line the user is a part of
         for theLine in viewModel.currentUser!.lines!{
             //get all of the lines that this user is a part of sorted by created at
@@ -128,38 +192,34 @@ struct Lines: View {
                 .document(theLine)
                 .addSnapshotListener { DocumentSnapshot
                     , _ in
-                    guard let theLines =  try? DocumentSnapshot?.data(as: currentLineModel.self) else {return }
+                    guard let theLines =  try? DocumentSnapshot?.data(as: currentLineModel.self) else { print("could not read data as line model"); return }
                     
                     // for each line we want to append an object to an array
                     for lline in theLines.currentLine{
               
                         if lline.user == viewModel.currentUser?.id{
+                            print("found match")
                             let oneLine = myLines(picture: lline.picture, companyName: lline.companyName, timeRemaining: "10", companyId: theLine)
+                            print(oneLine)
                             
-                            myLinesList.append(oneLine)
+                            if myLinesList.contains(where: {$0.self == oneLine }){
+                                print("already here")
+                            } else {
+                                myLinesList.append(oneLine)
+                            }
                             
                         }
                         
                     }
                 }
             }
-            print(myLinesList)
+  
+        } else {
+            print("current user is not a part of any lines")
         }
+        print(myLinesList)
     }
 }
 
 
-struct Lines_Previews: PreviewProvider {
-    static var previews: some View {
-        Lines()
-    }
-}
-//
-//    .addSnapshotListener { snapshot, err in
-//        if err != nil {
-//            print("DEBUG - error occured while fetching users lines")
-//            return
-//        } else {
-//            print(snapshot)
-//        }
-//    }
+

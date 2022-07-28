@@ -19,11 +19,11 @@ struct companyLines: Codable{
     let picture: String;
 }
 
-struct myLines: Codable{
-    let picture : String,
-    let companyName : String,
-    let timeRemaining : String,
-    let companyId : String
+struct myLines: Equatable{
+    let picture : String;
+    let companyName : String;
+    let timeRemaining : String;
+    let companyId : String;
 }
 
 struct currentLineModel: Decodable, Identifiable{
