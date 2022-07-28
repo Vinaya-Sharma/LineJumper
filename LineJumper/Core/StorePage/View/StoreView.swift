@@ -161,7 +161,8 @@ struct StoreView: View {
                                                 "services" : ser,
                                                 "at" : Timestamp(date: Date()),
                                                 "companyName" : theCompany.companyName!,
-                                                "picture" : theCompany.picture!
+                                                "picture" : theCompany.picture!,
+                                                "userPhoto" : viewModel.currentUser?.photo ?? "false"
                                             ]
                                             
                                             Firestore.firestore().collection("lines")

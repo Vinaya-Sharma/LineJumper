@@ -153,5 +153,18 @@ class AuthViewModel: ObservableObject{
             .updateData(Data)
 
     }
-
+    
+    func updatePhoto(_ image: UIImage){
+        print("running upload to firebase firestore")
+        guard let userId = self.currentUser?.id else {return}
+        
+        ImageUploader.uploadImg(image: image ){
+            profilePicUrl in
+            
+            Firestore.firestore().collection("customers")
+                .document(userId)
+                .updateData(["photo": profilePicUrl])
+        }
+    }
 }
+

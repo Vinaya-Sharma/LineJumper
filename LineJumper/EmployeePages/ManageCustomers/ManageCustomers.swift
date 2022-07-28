@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestore
+import Kingfisher
 
 struct ManageCustomers: View {
     
@@ -61,16 +62,22 @@ struct ManageCustomers: View {
                 ScrollView(showsIndicators: false){
                 VStack(alignment:.leading){
                                 
-                    if companyLines != nil {
+                    if companyLines != nil && inLine {
                     ForEach(0 ..< companyLines!.currentLine.count, id: \.self){
                         theLine in
                     VStack(alignment: .leading) {
                     HStack{
-                        Image("profilePic")
+                        if companyLines!.currentLine[theLine].userPhoto != "false" && companyLines!.currentLine[theLine].userPhoto != nil
+                       { KFImage(URL(string: companyLines!.currentLine[theLine].userPhoto!) )
                             .resizable()
                             .frame(width: 50, height: 50)
                             .cornerRadius(100)
-                        
+                        } else {
+                            Image("profilePic")
+                                 .resizable()
+                                 .frame(width: 50, height: 50)
+                                 .cornerRadius(100)
+                        }
                         Spacer()
                         
                         Text("10mins")
@@ -121,13 +128,15 @@ struct ManageCustomers: View {
     }
     
     func findRequests(){
-        Firestore.firestore().collection("lines")
-            .document( viewModel.currentCompany!.id! )
-            .addSnapshotListener { snapshot, _ in
-                guard let theLine = try? snapshot?.data(as: currentLineModel.self ) else {return}
-                print(theLine.currentLine)
-                companyLines = theLine
-            }
+        if viewModel.currentCompany?.id != nil {
+            Firestore.firestore().collection("lines")
+                .document( viewModel.currentCompany!.id! )
+                .addSnapshotListener { snapshot, _ in
+                    guard let theLine = try? snapshot?.data(as: currentLineModel.self ) else {return}
+                    print(theLine.currentLine)
+                    companyLines = theLine
+                }
+        }
     }
     
 }

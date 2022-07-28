@@ -16,6 +16,7 @@ struct companyLines: Codable{
     let user: String;
     let companyName: String;
     let picture: String;
+    let userPhoto: String?
 }
 
 struct myLines: Equatable{
