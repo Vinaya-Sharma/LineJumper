@@ -1,19 +1,16 @@
 //
-//  ManageCustomers.swift
+//  ManageCalls.swift
 //  LineJumper
 //
-//  Created by CoopStudent on 7/26/22.
+//  Created by CoopStudent on 7/28/22.
 //
-
 import SwiftUI
 import FirebaseFirestore
 
-struct ManageCustomers: View {
+struct ManageCalls: View {
     
     @State private var inLine: Bool = false
-    @EnvironmentObject  var viewModel: AuthViewModel
-    @State var companyLines: currentLineModel?
-    
+
     var body: some View {
         VStack(alignment:.leading){
             Text("Manage Customers")
@@ -24,10 +21,10 @@ struct ManageCustomers: View {
             
             // manage buttons
             HStack{
-                ManageButton(theText: "In Line", theColor: inLine ? "primary" : ".white" ).onTapGesture {
+                ManageButton(theText: "Requested Calls", theColor: inLine ? "primary" : ".white" ).onTapGesture {
                 inLine = true
                 }
-                ManageButton(theText: "Currently Serving", theColor: !inLine ? "primary" : ".white").onTapGesture {
+                ManageButton(theText: "Currently On Call", theColor: !inLine ? "primary" : ".white").onTapGesture {
                     inLine = false
                 }
             }.padding(.horizontal)
@@ -61,8 +58,9 @@ struct ManageCustomers: View {
                 ScrollView(showsIndicators: false){
                 VStack(alignment:.leading){
                                 
-                    if companyLines != nil {
-                    ForEach(0 ..< companyLines!.currentLine.count, id: \.self){
+                   
+                    if inLine{
+                    ForEach(0 ..< 5, id: \.self){
                         theLine in
                     VStack(alignment: .leading) {
                     HStack{
@@ -99,10 +97,47 @@ struct ManageCustomers: View {
                         }
             
                         }
-                        Text(companyLines!.currentLine[theLine].name ).font(.subheadline).bold()
-                        Text(companyLines!.currentLine[theLine].phoneNumber).font(.subheadline).foregroundColor(Color("primary"))
+                        Text("name" ).font(.subheadline).bold()
+                        Text("number").font(.subheadline).foregroundColor(Color("primary"))
                     }
                     }
+                    } else {
+                        HStack{
+                            Image("profilePic")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .cornerRadius(100)
+                            
+                            Spacer()
+                            
+                            Text("10mins")
+                            
+                            Spacer()
+                            
+                            //action icons
+             
+                            HStack{
+                                Image(systemName: "x.circle")
+                                    .padding(4).background(Color("primary"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(100)
+                                Image(systemName: "bell")
+                                    .padding(4).background(Color("primary"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(100)
+                                Image(systemName: "plus")
+                                    .padding(4).background(Color("primary"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(100)
+                                Image(systemName: "checkmark")
+                                    .padding(4).background(Color("primary"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(100)
+                            }
+                
+                            }
+                            Text("name" ).font(.subheadline).bold()
+                            Text("number").font(.subheadline).foregroundColor(Color("primary"))
                     }
                     
                     Spacer()
@@ -115,25 +150,14 @@ struct ManageCustomers: View {
             
             
             Spacer()
-        }.padding().onAppear{
-            findRequests()
+        }.padding()
         }
     }
     
-    func findRequests(){
-        Firestore.firestore().collection("lines")
-            .document( viewModel.currentCompany!.id! )
-            .addSnapshotListener { snapshot, _ in
-                guard let theLine = try? snapshot?.data(as: currentLineModel.self ) else {return}
-                print(theLine.currentLine)
-                companyLines = theLine
-            }
+
+struct ManageCalls_Previews: PreviewProvider {
+    static var previews: some View {
+        ManageCalls()
     }
-    
 }
 
-struct ManageCustomers_Previews: PreviewProvider {
-    static var previews: some View {
-        ManageCustomers()
-    }
-}

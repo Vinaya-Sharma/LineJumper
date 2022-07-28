@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F09D92528906C24009CBB64 /* EmployeeBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09D92428906C24009CBB64 /* EmployeeBubble.swift */; };
+		8F15F146289341AD003B1126 /* ManageCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F15F145289341AD003B1126 /* ManageCalls.swift */; };
 		8F293C86288DC8E20099CEB2 /* Saved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F293C85288DC8E20099CEB2 /* Saved.swift */; };
 		8F293C88288DC8EA0099CEB2 /* Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F293C87288DC8EA0099CEB2 /* Lines.swift */; };
 		8F293C8A288DC8F20099CEB2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F293C89288DC8F20099CEB2 /* Profile.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		8F09D92428906C24009CBB64 /* EmployeeBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeBubble.swift; sourceTree = "<group>"; };
+		8F15F145289341AD003B1126 /* ManageCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCalls.swift; sourceTree = "<group>"; };
 		8F293C85288DC8E20099CEB2 /* Saved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saved.swift; sourceTree = "<group>"; };
 		8F293C87288DC8EA0099CEB2 /* Lines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lines.swift; sourceTree = "<group>"; };
 		8F293C89288DC8F20099CEB2 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				8FFD561728908339009159E6 /* ManageCustomers.swift */,
+				8F15F145289341AD003B1126 /* ManageCalls.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				8F293C88288DC8EA0099CEB2 /* Lines.swift in Sources */,
 				8F3B60E6288F38A300DCAFA3 /* SideMenuView.swift in Sources */,
 				8F40121C289060D8003C0550 /* Services.swift in Sources */,
+				8F15F146289341AD003B1126 /* ManageCalls.swift in Sources */,
 				8F43C72B288F03A4009376AB /* AuthHeader.swift in Sources */,
 				8F570A84288F175C001E3AD5 /* RegistrationView.swift in Sources */,
 				8FFE022E288C6837007C4427 /* SearchBar.swift in Sources */,

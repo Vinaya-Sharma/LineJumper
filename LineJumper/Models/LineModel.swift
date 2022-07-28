@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct companyLines: Codable{
-    @DocumentID var id: String?
     let at: Date;
     let name: String;
     let phoneNumber: String;
@@ -26,7 +25,6 @@ struct myLines: Equatable{
     let companyId : String;
 }
 
-struct currentLineModel: Decodable, Identifiable{
-    @DocumentID var id: String?
+struct currentLineModel: Decodable {
     var currentLine: [companyLines]
 }

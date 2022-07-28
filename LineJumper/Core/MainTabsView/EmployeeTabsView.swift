@@ -46,7 +46,7 @@ struct EmployeeTabsView: View {
                     .tabItem{Image(systemName: "figure.stand.line.dotted.figure.stand")}
                     .tag(2)
                 
-                Profile()
+                ManageCalls()
                     .navigationBarTitle("You can't see me 👀")
                     .navigationBarHidden(true)
                     .onTapGesture{self.selectedIndex = 3}
