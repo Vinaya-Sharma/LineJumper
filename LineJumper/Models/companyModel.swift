@@ -9,6 +9,12 @@ import Foundation
 import FirebaseFirestoreSwift
 import SwiftUI
 
+struct servicesModel: Codable, Equatable{
+    var name: String?
+    var emoji: String?
+    var time: String?
+}
+
 struct CompanyModel: Identifiable, Decodable{
     @DocumentID var id: String?
     let email: String
@@ -20,4 +26,7 @@ struct CompanyModel: Identifiable, Decodable{
     var description: String?
     var address: String?
     var companyName: String?
+    var type: String?
+    var services: [ servicesModel ]?
+    //var services: [ [ var name: String; var emoji: String; var time: String; ] ]?
 }

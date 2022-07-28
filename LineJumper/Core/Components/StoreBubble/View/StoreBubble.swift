@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct StoreBubble: View {
+    
+    let company: CompanyModel
+    
     var body: some View {
         VStack(alignment:.leading){
-            Image("salon_4")
+            KFImage(URL(string: company.picture!))
+                .resizable()
                 .frame(width: 280, height: 180)
                 .cornerRadius(25)
                 .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
@@ -19,7 +24,7 @@ struct StoreBubble: View {
                 Text("hiii").foregroundColor(.clear);
 
                 
-                Text("Ninas Parlor")
+                Text(company.companyName!)
                     .font(.subheadline).bold()
                     .foregroundColor(.black)
                 
@@ -29,7 +34,7 @@ struct StoreBubble: View {
                     
                     Spacer()
                     
-                    Text("69 Gore Rd.")
+                    Text(company.address!)
                         .font(.footnote)
                 }.foregroundColor(Color("primary"))
                  
@@ -49,8 +54,3 @@ struct StoreBubble: View {
 }
 }
 
-struct StoreBubble_Previews: PreviewProvider {
-    static var previews: some View {
-        StoreBubble()
-    }
-}

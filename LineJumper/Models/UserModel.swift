@@ -15,4 +15,5 @@ struct UserModel: Identifiable, Decodable {
     let isOwner: String
     let phoneNumber: String
     let photo: String?
+    let lines: [String]?
 }

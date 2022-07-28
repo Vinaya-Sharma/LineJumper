@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct Homepage: View {
     @State var findStore: String = ""
-
+    @State var theCompanies: [CompanyModel] = []
 
     var body: some View {
             ScrollView(){
@@ -24,7 +26,34 @@ struct Homepage: View {
                     
                     Spacer()
                 }
+            }.onAppear{
+                fetchCompanies()
             }
+    }
+    
+    func fetchCompanies(){
+       
+        Firestore.firestore().collection("companies").getDocuments(completion: { QuerySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in QuerySnapshot!.documents {
+                    guard let company = try? document.data(as: CompanyModel.self) else {return}
+                    theCompanies.append(company)
+                }
+            }
+        })
+        
+
+//
+//        Firestore.firestore().collection("customers")
+//            .document(uid)
+//            .getDocument {snapshot, _ in
+//                guard let snapshot = snapshot else {return}
+//                guard let user = try? snapshot.data(as: UserModel.self) else {return}
+//
+//                completion(user)
+//            }
     }
 }
 
@@ -54,6 +83,7 @@ extension Homepage{
                 Spacer()
             }
         }.padding(.top, 10)
+        
     }
     
     var StoresView: some View{
@@ -78,13 +108,13 @@ extension Homepage{
             
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack{
-                            ForEach(0 ..< 5, id: \.self){
-                                _ in
+                        ForEach(0 ..< theCompanies.count , id: \.self){
+                                company in
                                 
                                 NavigationLink {
-                                    StoreView()
+                                    StoreView(theCompany: theCompanies[company])
                                 } label: {
-                                    StoreBubble()
+                                    StoreBubble(company: theCompanies[company])
                                 }
                             }
 
@@ -111,18 +141,15 @@ extension Homepage{
             
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack{
-                            ForEach(0 ..< 5, id: \.self){
-                                _ in
+                        ForEach(0 ..< theCompanies.count , id: \.self){
+                                company in
                                 
                                 NavigationLink {
-                                    StoreView()
+                                    StoreView(theCompany: theCompanies[company])
                                 } label: {
-                                    StoreBubble()
+                                    StoreBubble(company: theCompanies[company])
                                 }
-
-                                
                             }
-
                     }
                 }.statusBar(hidden: true)
             }

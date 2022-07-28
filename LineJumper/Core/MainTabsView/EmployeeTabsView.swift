@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct EmployeeTabsView: View {
+    @EnvironmentObject var viewModel: AuthViewModel;
+    
     @State private var selectedIndex = 0
     
     init() {

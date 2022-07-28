@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct BusinessInformation: View {
     @EnvironmentObject var viewModel: AuthViewModel;
@@ -17,7 +18,7 @@ struct BusinessInformation: View {
     Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2);
     @State private var companyColor3 =
     Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2);
-    @State private var description: String = "type here";
+    @State private var description: String = "Type here...";
     @State private var companyName = "";
     @State private var address = "";
     @State private var showImagePicker = false
@@ -26,7 +27,8 @@ struct BusinessInformation: View {
     @State private var selectedLogo: UIImage?
     @State private var companyImage: Image?
     @State private var companyLogo: Image?
-
+    @State private var type: String?
+    
     var body: some View {
         
         VStack(alignment:.leading){
@@ -63,7 +65,7 @@ struct BusinessInformation: View {
                             }
                             
                         } else {
-                            Image(currentCompany.picture ?? "https://iconape.com/wp-content/png_logo_vector/upload-5.png")
+                            KFImage(URL(string: currentCompany.picture!))
                                 .resizable()
                                 .frame(width: 300, height: 250)
                                 .cornerRadius(20)
@@ -98,6 +100,24 @@ struct BusinessInformation: View {
                         ColorPicker("", selection: $companyColor3)
                     }.padding(.trailing, 50)
                     
+                    HStack{
+                        ForEach(StoreTypes.allCases, id:\.self){
+                            theType in
+                            
+                            Button{
+                                type = theType.name
+                            }label: {
+                                Text(theType.name)
+                                    .font(.caption)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 8)
+                                    .background(type != theType.name ? .white : Color("primary") )
+                                    .cornerRadius(100)
+                                    .foregroundColor( type == theType.name ? .white : Color("primary") )
+                            }
+                        }
+                    }
+                    
                     //logo and description
                     HStack{
                         //logo uploader
@@ -126,7 +146,7 @@ struct BusinessInformation: View {
                                     }
                                     
                                 } else {
-                                    Image(currentCompany.logo ?? "https://iconape.com/wp-content/png_logo_vector/upload-5.png")
+                                    KFImage(URL(string: currentCompany.logo!))
                                         .resizable()
                                         .frame(width: 100, height: 100)
                                         .cornerRadius(20)
@@ -167,9 +187,10 @@ struct BusinessInformation: View {
                             "companyName" : companyName ,
                             "address" : address,
                             "description" : description,
+                            "type" : type
                         ]
                         
-                        viewModel.uploadPhoto(selectedImage!, logo: selectedLogo!, Data: data)
+                        viewModel.uploadPhoto(selectedImage!, logo: selectedLogo!, Data: data as [AnyHashable : Any])
                         
                     }label: {
                         ManageButton(theText: "Save Changes", theColor: "primary").padding(.vertical)
@@ -201,7 +222,12 @@ struct BusinessInformation: View {
                 }.padding(.horizontal)
                 }}
             }
-            
+        .onAppear {
+            companyName = viewModel.currentCompany?.companyName ?? ""
+            address = viewModel.currentCompany?.address ?? ""
+            description = viewModel.currentCompany?.description ?? "Type here..."
+            type = viewModel.currentCompany?.type ?? ""
+        }
     }
     
     func loadImage(){

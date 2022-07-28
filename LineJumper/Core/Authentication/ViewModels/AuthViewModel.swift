@@ -20,9 +20,7 @@ class AuthViewModel: ObservableObject{
         self.userSession = Auth.auth().currentUser
         self.fetchUser()
         
-        if self.currentUser?.isOwner == "true"{
-            self.fetchCompany()
-        }
+        self.fetchCompany()
     }
     
     func login (withEmail email: String, password:String){
@@ -52,13 +50,14 @@ class AuthViewModel: ObservableObject{
                 return
             }
             
-            let data = [
+            let data : [String: Any] = [
                 "email": email,
                 "phoneNumber": phoneNumber,
                 "fullName": fullName,
                 "password": password,
                 "isCustomer": isCustomer,
-                "isOwner": isOwner
+                "isOwner": isOwner,
+                "lines": []
             ]
             
             let code:String = String(Int.random(in: 10000..<100000))

@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import Kingfisher
+import FirebaseFirestore
 
 struct StoreView: View {
+    let theCompany: CompanyModel
+    @EnvironmentObject var viewModel: AuthViewModel
     @State private var showPopup: Bool = false
     @State private var selectedPopup: Int = 1
     @State private var name: String = ""
     @State private var phoneNumber: String = ""
+    @State var selectedServices: [servicesModel] = []
     
     var body: some View {
         
@@ -19,9 +24,82 @@ struct StoreView: View {
             ScrollView{
                 VStack(alignment:.leading){
                     // top image
-                    TopImg()
+                    TopImg(theCompany: theCompany)
             
-                    StoreContent()
+                    VStack(alignment:.leading){
+                        Text(theCompany.companyName!)
+                            .font(.title).bold()
+                        
+                        Text(theCompany.description!)
+                            .lineSpacing(4)
+                            .font(.subheadline)
+                            .foregroundColor(.black)
+                            .opacity(0.7)
+                            .padding(.vertical, 1)
+                            .lineSpacing(5)
+                        
+                        Text("Select Services")
+                            .font(.title3)
+                            .bold()
+                            .padding(.top)
+                        
+                        ScrollView(.horizontal, showsIndicators: false ){
+                            HStack{
+                                if theCompany.services?.count != nil {
+                                ForEach(0 ..< theCompany.services!.count, id: \.self){
+                                    
+                                    service in
+                                    
+                                    Button{
+                                        if selectedServices.contains(where: {$0.name == theCompany.services![service].name }){
+                                            selectedServices.remove(at: selectedServices.firstIndex(of: theCompany.services![service])!)
+                                        } else {
+                                            selectedServices.append(theCompany.services![service])
+                                        }
+                                    } label: {
+                                        
+                                        if selectedServices.contains(where: {$0.name == theCompany.services![service].name }){
+                                            ServiceBubble( service: theCompany.services![service], selected: true )
+                                        } else {
+                                            ServiceBubble( service: theCompany.services![service], selected: false )
+                                        }
+                                        
+                                    }
+                                    
+                            }.padding(.vertical)
+                                }
+                                }
+                        
+            //            Text("Select A Location")
+            //                .font(.title3)
+            //                .bold()
+            //
+            //
+            //            ScrollView(.horizontal, showsIndicators: false ){
+            //                HStack{
+            //                    ForEach(0 ..< 5, id: \.self){
+            //                        _ in
+            //                        ZStack(alignment: .bottomLeading){
+            //                            Image("salon_2")
+            //                                .resizable()
+            //                                .frame(width: 220, height: 150)
+            //                                .cornerRadius(10)
+            //                                .shadow(color: .gray, radius: 2, x: -1, y: 2)
+            //
+            //                            Text("339 Mclaughclin Rd.")
+            //                                .font(.subheadline)
+            //                                .padding(7)
+            //                                .background(.white)
+            //                                .cornerRadius(10)
+            //                                .padding(6)
+            //
+            //                        }.padding(.horizontal, 6)
+            //                    }
+            //                }
+             }
+                        
+                        
+                    }.padding()
                     
                     Buttons
                     
@@ -66,7 +144,32 @@ struct StoreView: View {
                     
                     if(selectedPopup == 1){
                         Button{
-                            print("stand the user in line")
+                            
+                            var ser: [String] = []
+                            for service in selectedServices {
+                                ser.append( service.name! )
+                            }
+                            
+                            Firestore.firestore().collection("customers")
+                                .document(viewModel.currentUser!.id!)
+                                .updateData(["lines" : FieldValue.arrayUnion([theCompany.id!]) ])
+            
+                            let data : [String : Any] = [
+                                                "user" : String(viewModel.currentUser!.id!),
+                                                "name" : name,
+                                                "phoneNumber" : phoneNumber,
+                                                "services" : ser,
+                                                "at" : Timestamp(date: Date()),
+                                                "companyName" : theCompany.companyName!,
+                                                "picture" : theCompany.picture!
+                                            ]
+                                            
+                                            Firestore.firestore().collection("lines")
+                                                .document(theCompany.id!)
+                                                .updateData(["currentLine" : FieldValue.arrayUnion([data]) ])
+                                                
+                                            showPopup = false
+                            
                         } label: {
                             Text("Stand in line")
                         }
@@ -90,19 +193,17 @@ struct StoreView: View {
     }
 }
 
-struct StoreView_Previews: PreviewProvider {
-    static var previews: some View {
-        StoreView()
-    }
-}
 
 struct ServiceBubble: View {
+    var service: servicesModel
+    var selected: Bool
     var body: some View {
         VStack(alignment:.center, spacing:6){
-            Text("💇‍♂️").font(.title)
-            Text("Hair Cut").font(.subheadline)
+            Text(service.emoji!).font(.title)
+            Text(service.name!).font(.subheadline)
         }.padding(5)
-            .background(.white)
+            .foregroundColor(selected ? .white : Color("primary"))
+            .background(selected ? Color("primary") : .white)
             .cornerRadius(10)
             .shadow(color: .gray, radius: 2, x: -1, y: 1)
             .padding(.horizontal, 4)
@@ -110,10 +211,11 @@ struct ServiceBubble: View {
 }
 
 struct TopImg: View {
+    let theCompany: CompanyModel
     
     var body: some View {
         ZStack(alignment: .top){
-            Image("salon_4")
+            KFImage(URL(string: theCompany.picture!))
                 .resizable()
                 .frame(width:350, height: 250)
                 .cornerRadius(25)
@@ -137,12 +239,15 @@ struct TopImg: View {
 }
 
 struct StoreContent: View {
+    let theCompany: CompanyModel
+    @State var selectedServices: [servicesModel]
+    
     var body: some View {
         VStack(alignment:.leading){
-            Text("Ninas Parlor")
+            Text(theCompany.companyName!)
                 .font(.title).bold()
             
-            Text("A little description wjeng jrengjern rejngjr rekngrejg grejng gerjngr grjngr rkgjrneg gnrjgn rengjrn grngjrng rngjkr rjngrjng jenjen jgnrj rjgnrj rgnjrng rngjrngj rjgnjrn")
+            Text(theCompany.description!)
                 .lineSpacing(4)
                 .font(.subheadline)
                 .foregroundColor(.black)
@@ -150,46 +255,63 @@ struct StoreContent: View {
                 .padding(.vertical, 1)
                 .lineSpacing(5)
             
-            Text("Select A Service")
+            Text("Select Services")
                 .font(.title3)
                 .bold()
                 .padding(.top)
             
             ScrollView(.horizontal, showsIndicators: false ){
                 HStack{
-                    ForEach(0 ..< 7, id: \.self){
-                        _ in ServiceBubble()
-                    }
+                    ForEach(0 ..< theCompany.services!.count, id: \.self){
+                        
+                        service in
+                        
+                        Button{
+                            if selectedServices.contains(where: {$0.name == theCompany.services![service].name }){
+                                selectedServices.remove(at: selectedServices.firstIndex(of: theCompany.services![service])!)
+                            } else {
+                                selectedServices.append(theCompany.services![service])
+                            }
+                        } label: {
+                            
+                            if selectedServices.contains(where: {$0.name == theCompany.services![service].name }){
+                                ServiceBubble( service: theCompany.services![service], selected: true )
+                            } else {
+                                ServiceBubble( service: theCompany.services![service], selected: false )
+                            }
+                            
+                        }
+                        
                 }.padding(.vertical)
             }
             
-            Text("Select A Location")
-                .font(.title3)
-                .bold()
-            
-            
-            ScrollView(.horizontal, showsIndicators: false ){
-                HStack{
-                    ForEach(0 ..< 5, id: \.self){
-                        _ in
-                        ZStack(alignment: .bottomLeading){
-                            Image("salon_2")
-                                .resizable()
-                                .frame(width: 220, height: 150)
-                                .cornerRadius(10)
-                                .shadow(color: .gray, radius: 2, x: -1, y: 2)
-                            
-                            Text("339 Mclaughclin Rd.")
-                                .font(.subheadline)
-                                .padding(7)
-                                .background(.white)
-                                .cornerRadius(10)
-                                .padding(6)
-                            
-                        }.padding(.horizontal, 6)
-                    }
-                }
-            }
+//            Text("Select A Location")
+//                .font(.title3)
+//                .bold()
+//
+//
+//            ScrollView(.horizontal, showsIndicators: false ){
+//                HStack{
+//                    ForEach(0 ..< 5, id: \.self){
+//                        _ in
+//                        ZStack(alignment: .bottomLeading){
+//                            Image("salon_2")
+//                                .resizable()
+//                                .frame(width: 220, height: 150)
+//                                .cornerRadius(10)
+//                                .shadow(color: .gray, radius: 2, x: -1, y: 2)
+//
+//                            Text("339 Mclaughclin Rd.")
+//                                .font(.subheadline)
+//                                .padding(7)
+//                                .background(.white)
+//                                .cornerRadius(10)
+//                                .padding(6)
+//
+//                        }.padding(.horizontal, 6)
+//                    }
+//                }
+ }
             
             
         }.padding()
@@ -244,3 +366,4 @@ extension StoreView{
     }
     
 }
+
