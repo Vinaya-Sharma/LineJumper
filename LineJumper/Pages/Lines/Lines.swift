@@ -70,7 +70,7 @@ struct Lines: View {
                         Spacer()
                         
                       
-                        if viewModel.currentUser?.email == "vinaya@gmail.com"{
+                        if viewModel.currentUser?.email == "Vinaya@gmail.com"{
                             Text("1 minute remaining")
                                 .foregroundColor(Color("primary"))
                         } else if myLinesList[lineNumber].companyName  == "Fine Looks" {
@@ -123,7 +123,7 @@ struct Lines: View {
             }
             } else {
                 VStack(alignment:.leading){
-                    Image("salon_2")
+                    Image("salon_20")
                         .resizable()
                         .aspectRatio(contentMode: ContentMode.fill)
                         .frame(width: 320, height: 180)
@@ -135,14 +135,14 @@ struct Lines: View {
 
                         HStack{
                             
-                            Text("Company Name")
+                            Text("Fine Looks")
                                 .bold()
                                 .foregroundColor(.black)
                             
                             Spacer()
                             
                             
-                            Text("10 mins remaining")
+                            Text(viewModel.currentUser?.email == "Krish@gmail.com" ? "10 mins remaining" : "1 min remaining" )
                                 .foregroundColor(Color("primary"))
                         }
                         

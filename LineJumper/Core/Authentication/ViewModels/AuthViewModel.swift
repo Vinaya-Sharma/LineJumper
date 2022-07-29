@@ -21,6 +21,7 @@ class AuthViewModel: ObservableObject{
         self.fetchUser()
         
         self.fetchCompany()
+
     }
     
     func login (withEmail email: String, password:String){
@@ -81,6 +82,11 @@ class AuthViewModel: ObservableObject{
                             _ in
                             self.didRegUser = true
                         }
+                
+                Firestore.firestore().collection("lines")
+                    .document(user.uid)
+                    .setData(["currentLine" : []])
+    
             } else {
                 print("no owner :(")
             }

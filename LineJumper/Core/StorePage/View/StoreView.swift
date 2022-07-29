@@ -137,7 +137,7 @@ struct StoreView: View {
                             .font(.subheadline)
                         
                         Spacer()
-                        Text("15 mins").font(.subheadline).bold()
+                        Text( viewModel.currentUser?.email == "Vinaya@gmail.com" ? "1 min" : "15 mins").font(.subheadline).bold()
                     }.padding(.top)
                     
                     Divider()

@@ -13,12 +13,15 @@ struct StoreBubble: View {
     let company: CompanyModel
     
     var body: some View {
+        if company.companyName != nil {
         VStack(alignment:.leading){
-            KFImage(URL(string: company.picture!))
-                .resizable()
-                .frame(width: 280, height: 180)
-                .cornerRadius(25)
-                .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
+            if company.picture != nil {
+                KFImage(URL(string: company.picture!))
+                    .resizable()
+                    .frame(width: 280, height: 180)
+                    .cornerRadius(25)
+                    .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
+            }
             
             VStack(alignment:.leading, spacing: 4){
                 Text("hiii").foregroundColor(.clear);
@@ -56,6 +59,7 @@ struct StoreBubble: View {
                     .stroke(Color("secondaryBlue").opacity(0.1), lineWidth: 2)
             )
             .padding(.horizontal)
+        }
 }
 }
 

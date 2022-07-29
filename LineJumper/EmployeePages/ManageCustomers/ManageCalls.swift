@@ -9,7 +9,9 @@ import FirebaseFirestore
 
 struct ManageCalls: View {
     
-    @State private var inLine: Bool = false
+    @State private var inLine: Bool = true
+    @State private var showMe: Bool = true
+    
 
     var body: some View {
         VStack(alignment:.leading){
@@ -61,6 +63,8 @@ struct ManageCalls: View {
                    
                     if inLine{
                         VStack(alignment: .leading) {
+                           
+                            if showMe {
                         HStack{
                             Image("girl")
                                 .resizable()
@@ -88,15 +92,21 @@ struct ManageCalls: View {
                                     .padding(4).background(Color("primary"))
                                     .foregroundColor(.white)
                                     .cornerRadius(100)
-                                Image(systemName: "checkmark")
-                                    .padding(4).background(Color("primary"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(100)
+                                Button{
+                                    showMe = false
+                                }label: {
+                                    Image(systemName: "checkmark")
+                                        .padding(4).background(Color("primary"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(100)
+                                }
                             }
                 
                             }
+                            
                             Text("Vinaya Sharma" ).font(.subheadline).bold()
                             Text("647-879-2615").font(.subheadline).foregroundColor(Color("primary"))
+                            }
                             
                             HStack{
                                 Image("boy")

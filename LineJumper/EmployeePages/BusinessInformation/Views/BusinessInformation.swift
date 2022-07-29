@@ -55,6 +55,7 @@ struct BusinessInformation: View {
                                         .resizable()
                                         .cornerRadius(20)
                                         .frame(width: 300, height: 250)
+                                        .padding(.horizontal)
                           
                                     }
                                 else {
@@ -220,6 +221,7 @@ struct BusinessInformation: View {
                             .foregroundColor(Color("primaryBlue"))
                             .padding(.top)
                         
+                        if currentCompany.email == "Adore@gmail.com"{
                         ScrollView(.horizontal){
                             HStack(spacing:15){
                                 UploaderSquare(width: 80, height: 80, roundness: 100)
@@ -250,6 +252,9 @@ struct BusinessInformation: View {
                                 
                             }.padding(.horizontal)
                         }.padding(.trailing, 35)
+                        } else {
+                            Text("No managers selected yet. Share your employee code to add employees and then promote them on the services page ").padding(.bottom).font(.caption)
+                        }
                     }
 
       

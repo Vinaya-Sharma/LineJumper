@@ -14,7 +14,7 @@ struct Services: View {
     @State private var name: String = ""
     @State private var emoji: String = ""
     @State private var time: String = ""
-    
+
     var body: some View {
         
         if let currentCompany = viewModel.currentCompany{
@@ -80,6 +80,7 @@ struct Services: View {
                     .padding(.top)
                     .padding(.horizontal)
                 
+                if currentCompany.email == "Adore@gmail.com"{
                 ScrollView(.horizontal, showsIndicators: false){
                     VStack{
                         HStack(spacing:10){
@@ -117,7 +118,9 @@ struct Services: View {
                     }.padding(.horizontal, 4)
                 }
                 .padding(.horizontal)
-                
+                }else {
+                    Text("No employees added yet. Share your employee code found on the Business Information page to add employees!").padding(.bottom).font(.caption).padding(.horizontal)
+                }
                 
                 Spacer()
             }
@@ -166,6 +169,9 @@ struct Services: View {
                                 ])
                             viewModel.fetchCompany()
                             showPopup = false
+                            name = ""
+                            emoji = ""
+                            time = ""
                         } label: {
                             Text("Add Service")
                         }
