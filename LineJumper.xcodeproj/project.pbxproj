@@ -158,7 +158,6 @@
 		8F293C84288DC8CE0099CEB2 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				8F293C89288DC8F20099CEB2 /* Profile.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -414,6 +413,7 @@
 		8FFE0222288C6574007C4427 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8F293C89288DC8F20099CEB2 /* Profile.swift */,
 				8F387DFA2890281000302C8E /* UserModel.swift */,
 				8F6FC40E2890B29A00E40785 /* companyModel.swift */,
 				8FB854F32892CFDC0035EA50 /* LineModel.swift */,

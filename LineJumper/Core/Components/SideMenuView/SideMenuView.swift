@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct SideMenuView: View {
     
@@ -16,15 +17,24 @@ struct SideMenuView: View {
         VStack(alignment: .leading){
             VStack(alignment:.leading, spacing: 4)
                 {
-                    Image("profilePic")
-                        .resizable()
-                        .frame(width: 80, height: 80)
-                        .cornerRadius(100)
-                        .padding(.bottom, 8)
+                    if viewModel.currentUser?.photo != nil {
+                        KFImage(URL(string: viewModel.currentUser!.photo!))
+                            .resizable()
+                            .frame(width: 80, height: 80)
+                            .cornerRadius(100)
+                            .padding(.bottom, 8)
+                        
+                    } else {
+                        Image("profilePic")
+                            .resizable()
+                            .frame(width: 80, height: 80)
+                            .cornerRadius(100)
+                            .padding(.bottom, 8)
+                    }
                     
-                    Text("Krish Sharma")
+                    Text(viewModel.currentUser!.fullName)
                         .font(.headline)
-                    Text("Ninas Parlor")
+                    Text(viewModel.currentCompany!.companyName ?? "" )
                         .font(.caption)
                         .foregroundColor(.gray)
                     

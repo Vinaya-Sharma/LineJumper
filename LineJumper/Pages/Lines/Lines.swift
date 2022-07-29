@@ -69,9 +69,17 @@ struct Lines: View {
                         
                         Spacer()
                         
-                        
-                        Text("10 mins remaining")
-                            .foregroundColor(Color("primary"))
+                      
+                        if viewModel.currentUser?.email == "vinaya@gmail.com"{
+                            Text("1 minute remaining")
+                                .foregroundColor(Color("primary"))
+                        } else if myLinesList[lineNumber].companyName  == "Fine Looks" {
+                            Text("1hr 6mins remaining")
+                                .foregroundColor(Color("primary"))
+                        } else {
+                            Text("12 min")
+                                .foregroundColor(Color("primary"))
+                        }
                     }
                     
                     HStack{

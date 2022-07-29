@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct Header: View {
     
     @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
+        if let currentUser = viewModel.currentUser{
             HStack{
                 Button {
                     viewModel.signOut()
@@ -33,14 +35,23 @@ struct Header: View {
                 Button {
                     print("clicking on img")
                 } label: {
-                    Image("profilePic")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 40, height: 40)
-                        .clipShape(RoundedRectangle(cornerRadius:20))
-                        .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
+                    if currentUser.photo != nil {
+                        KFImage(URL(string: currentUser.photo! )).resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 40)
+                            .clipShape(RoundedRectangle(cornerRadius:20))
+                            .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
+                    } else {
+                        Image("flying")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 40)
+                            .clipShape(RoundedRectangle(cornerRadius:20))
+                            .shadow(color: .gray.opacity(0.2), radius: 3, x: -3, y: 2)
+                    }
                 }
             }.padding(.horizontal)
+        }
     }
 }
 

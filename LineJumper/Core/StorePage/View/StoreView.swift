@@ -177,6 +177,7 @@ struct StoreView: View {
                     } else {
                         Button{
                             print("now in phone call line")
+                            showPopup = false
                         } label: {
                             Text("Book a call")
                         }

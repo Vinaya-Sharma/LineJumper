@@ -182,6 +182,8 @@ struct BusinessInformation: View {
                         }
                     }
                     
+      
+                    
                     Button{
                         let data = [
                             "companyName" : companyName ,
@@ -195,33 +197,67 @@ struct BusinessInformation: View {
                     }label: {
                         ManageButton(theText: "Save Changes", theColor: "primary").padding(.vertical)
                     }
-                    
-                    
-                    Text("Your Managers")
-                        .font(.title2)
-                        .bold()
-                        .foregroundColor(Color("primaryBlue"))
-                        .padding(.top)
-                    ScrollView(.horizontal){
-                        HStack(spacing:15){
-                            UploaderSquare(width: 80, height: 80, roundness: 100)
-                                .clipShape(Capsule())
-                                .shadow(color: Color("primary"), radius: 2, x: 0, y: 0)
+                    Group{
+                        
+                        HStack(alignment: .center){
+                            Text("Your Employee Code")
+                                .font(.title2)
+                                .bold()
+                                .foregroundColor(Color("primaryBlue"))
+                                .padding(.top)
+                            Spacer()
+                               Text( viewModel.currentCompany!.employeeCode).bold()
+                        }
+                        Text("Share this code to have employees join your account").font(.caption)
+        
+                
+                    }
+                    Group{
+                        
+                        Text("Your Managers")
+                            .font(.title2)
+                            .bold()
+                            .foregroundColor(Color("primaryBlue"))
+                            .padding(.top)
+                        
+                        ScrollView(.horizontal){
+                            HStack(spacing:15){
+                                UploaderSquare(width: 80, height: 80, roundness: 100)
+                                    .clipShape(Capsule())
+                                    .shadow(color: Color("primary"), radius: 2, x: 0, y: 0)
+                                            
+                                ForEach(1 ..< 5, id: \.self){
+                                    num in
+                                    VStack(alignment:.leading){
                                         
-                            ForEach(0 ..< 7, id: \.self){
-                                _ in
-                                employeeBubble()
-                                    .shadow(color: Color("primaryBlue"), radius: 2, x: 0, y: 0)
-                                    .padding(.vertical)
-                            }
-                            
-                        }.padding(.horizontal)
-                    }.padding(.trailing, 35)
-                    
+                                        if num == 2 {
+                                            Image("pp_\(num+1)")
+                                                .resizable()
+                                                .frame(width: 80, height: 80)
+                                                .clipShape(Capsule())
+                                                .overlay(Capsule().stroke(Color("primaryBlue") , lineWidth: 2))
+                                        } else {
+                                        Image("pp_\(num)")
+                                            .resizable()
+                                            .frame(width: 80, height: 80)
+                                            .clipShape(Capsule())
+                                            .overlay(Capsule().stroke(Color("primaryBlue") , lineWidth: 2))
+                                        }
+                                    }
+                                        .shadow(color: Color("primaryBlue"), radius: 2, x: 0, y: 0)
+                                        .padding(.vertical)
+                                }
+                                
+                            }.padding(.horizontal)
+                        }.padding(.trailing, 35)
+                    }
+
       
                 }.padding(.horizontal)
-                }}
-            }
+      
+                }
+                
+            }}
         .onAppear {
             companyName = viewModel.currentCompany?.companyName ?? ""
             address = viewModel.currentCompany?.address ?? ""

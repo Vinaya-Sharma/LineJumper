@@ -60,57 +60,16 @@ struct ManageCalls: View {
                                 
                    
                     if inLine{
-                    ForEach(0 ..< 5, id: \.self){
-                        theLine in
-                    VStack(alignment: .leading) {
-                    HStack{
-                        Image("profilePic")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .cornerRadius(100)
-                        
-                        Spacer()
-                        
-                        Text("10mins")
-                        
-                        Spacer()
-                        
-                        //action icons
-         
+                        VStack(alignment: .leading) {
                         HStack{
-                            Image(systemName: "x.circle")
-                                .padding(4).background(Color("primary"))
-                                .foregroundColor(.white)
-                                .cornerRadius(100)
-                            Image(systemName: "bell")
-                                .padding(4).background(Color("primary"))
-                                .foregroundColor(.white)
-                                .cornerRadius(100)
-                            Image(systemName: "plus")
-                                .padding(4).background(Color("primary"))
-                                .foregroundColor(.white)
-                                .cornerRadius(100)
-                            Image(systemName: "checkmark")
-                                .padding(4).background(Color("primary"))
-                                .foregroundColor(.white)
-                                .cornerRadius(100)
-                        }
-            
-                        }
-                        Text("name" ).font(.subheadline).bold()
-                        Text("number").font(.subheadline).foregroundColor(Color("primary"))
-                    }
-                    }
-                    } else {
-                        HStack{
-                            Image("profilePic")
+                            Image("girl")
                                 .resizable()
                                 .frame(width: 50, height: 50)
                                 .cornerRadius(100)
                             
                             Spacer()
                             
-                            Text("10mins")
+                            Text("1 minute")
                             
                             Spacer()
                             
@@ -136,8 +95,83 @@ struct ManageCalls: View {
                             }
                 
                             }
-                            Text("name" ).font(.subheadline).bold()
-                            Text("number").font(.subheadline).foregroundColor(Color("primary"))
+                            Text("Vinaya Sharma" ).font(.subheadline).bold()
+                            Text("647-879-2615").font(.subheadline).foregroundColor(Color("primary"))
+                            
+                            HStack{
+                                Image("boy")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .cornerRadius(100)
+                                
+                                Spacer()
+                                
+                                Text("16 minutes")
+                                
+                                Spacer()
+                                
+                                //action icons
+                 
+                                HStack{
+                                    Image(systemName: "x.circle")
+                                        .padding(4).background(Color("primary"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(100)
+                                    Image(systemName: "bell")
+                                        .padding(4).background(Color("primary"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(100)
+                                    Image(systemName: "plus")
+                                        .padding(4).background(Color("primary"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(100)
+                                    Image(systemName: "checkmark")
+                                        .padding(4).background(Color("primary"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(100)
+                                }
+                    
+                                }
+                                Text("Krish Sharma" ).font(.subheadline).bold()
+                                Text("647-853-1010").font(.subheadline).foregroundColor(Color("primary"))
+                        }
+                    } else {
+                        HStack{
+                            Image("girl")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .cornerRadius(100)
+                            
+                            Spacer()
+                            
+                            Text("< 1 minute")
+                            
+                            Spacer()
+                            
+                            //action icons
+             
+                            HStack{
+                                Image(systemName: "x.circle")
+                                    .padding(4).background(Color("primary"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(100)
+                                Image(systemName: "bell")
+                                    .padding(4).background(Color("primary"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(100)
+                                Image(systemName: "plus")
+                                    .padding(4).background(Color("primary"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(100)
+                                Image(systemName: "checkmark")
+                                    .padding(4).background(Color("primary"))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(100)
+                            }
+                
+                            }
+                            Text("Vinaya Sharma" ).font(.subheadline).bold()
+                            Text("647-879-2615").font(.subheadline).foregroundColor(Color("primary"))
                     }
                     
                     Spacer()

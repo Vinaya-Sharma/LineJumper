@@ -31,6 +31,11 @@ struct StoreBubble: View {
                 HStack{
                     Text("salon")
                         .font(.footnote)
+                        .padding(.horizontal)
+                        .padding(.vertical, 4)
+                        .background(Color("primary"))
+                        .foregroundColor(.white)
+                        .cornerRadius(100)
                     
                     Spacer()
                     

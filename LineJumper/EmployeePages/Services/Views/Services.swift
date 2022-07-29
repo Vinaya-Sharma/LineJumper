@@ -83,9 +83,15 @@ struct Services: View {
                 ScrollView(.horizontal, showsIndicators: false){
                     VStack{
                         HStack(spacing:10){
-                            ForEach(0 ..< 7, id: \.self){
-                                _ in
-                                employeeBubble()
+                            ForEach(0 ..< 9, id: \.self){
+                                num in
+                                VStack{
+                                    Image("pp_\(num + 8)")
+                                        .resizable()
+                                        .frame(width: 80, height: 80)
+                                        .clipShape(Capsule())
+                                        .overlay(Capsule().stroke(Color("primaryBlue") , lineWidth: 2))
+                                }
                                     .shadow(color: Color("primaryBlue"), radius: 2, x: 0, y: 0)
                                     .padding(.vertical, 10)
 
@@ -93,9 +99,15 @@ struct Services: View {
                             
                         }
                         HStack(spacing:10){
-                            ForEach(0 ..< 7, id: \.self){
-                                _ in
-                                employeeBubble()
+                            ForEach(0 ..< 9, id: \.self){
+                                num in
+                                VStack{
+                                    Image("pp_\(17 - num)")
+                                        .resizable()
+                                        .frame(width: 80, height: 80)
+                                        .clipShape(Capsule())
+                                        .overlay(Capsule().stroke(Color("primaryBlue") , lineWidth: 2))
+                                }
                                     .shadow(color: Color("primaryBlue"), radius: 2, x: 0, y: 0)
                                     .padding(.vertical, 10)
 

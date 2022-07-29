@@ -64,7 +64,7 @@ class AuthViewModel: ObservableObject{
             //business type, address, name
             
             guard let user =  result?.user else {return}
-            
+            self.userSession = user
             if isOwner == "true"
                 {
                     let bData = [
@@ -96,9 +96,8 @@ class AuthViewModel: ObservableObject{
        
 
             // self.tempUserSession = user
-            self.userSession = user
             self.fetchUser()
-
+            self.fetchCompany()
             if self.currentUser?.isOwner == "true"{
                 self.fetchCompany()
             }
